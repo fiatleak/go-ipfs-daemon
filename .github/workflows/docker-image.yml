@@ -33,9 +33,14 @@ jobs:
           echo "ENV_TAG=tnet" >> $GITHUB_ENV
       -
         name: Set develop branch tag
-        if: ${{ env.BRANCH == 'develop' || env.ENV_TAG == '' }}
+        if: ${{ env.BRANCH == 'develop' }}
         run: |
           echo "ENV_TAG=dev" >> $GITHUB_ENV
+      -
+        name: Set version branch tag
+        if: ${{ env.ENV_TAG == '' }}
+        run: |
+          echo "ENV_TAG=$BRANCH" >> $GITHUB_ENV
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
